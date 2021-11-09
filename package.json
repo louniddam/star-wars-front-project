@@ -1,0 +1,23 @@
+{
+  "name": "auth-star-wars",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite ./src/",
+    "build": "vite build ./src/",
+    "serve": "vite preview ./src/"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.5.0",
+    "@emotion/styled": "^11.3.0",
+    "@mui/material": "^5.1.0",
+    "@reduxjs/toolkit": "^1.6.2",
+    "axios": "^0.24.0",
+    "dotenv": "^10.0.0",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^1.0.0",
+    "vite": "^2.6.4"
+  }
+}
