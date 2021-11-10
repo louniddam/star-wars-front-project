@@ -1,14 +1,47 @@
 import React from 'react'
 import {Stack, TextField, Grid, Typography, Button} from '@mui/material';
 import { useNavigate } from 'react-router';
-
+import { useSelector, useDispatch } from 'react-redux'
+import { xsrfToken, accessToken, refreshToken } from '../../../features/auth/auth'
+import axios from "axios"
 
 const Login = () => {
 
     let navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const storedAccessToken = useSelector((state) => state.auth.accessToken)
+    const storedXsrfToken = useSelector((state) => state.auth.xsrfToken)
 
     const [email, setEmail] = React.useState("")
     const [password, setPassword] = React.useState("")
+
+    console.log(storedAccessToken);
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        try {
+            axios.post("https://api.pote.dev/auth/login", {email, password})
+            .then(res => {
+            dispatch(xsrfToken(res.data.xsrfToken))
+            dispatch(accessToken(res.data.accessToken))
+            dispatch(refreshToken(res.data.refreshToken))
+
+            axios.get("https://api.pote.dev/auth/me", {
+                headers: {
+                    Authorization: `Bearer ${res.data.accessToken}`,
+                    "x-xsrf-token": `${res.data.xsrfToken}`
+                }
+            })
+            .then(res => {
+                console.log(res.data);
+            })
+        })
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
       <Grid
@@ -43,7 +76,7 @@ const Login = () => {
                 }}}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Button variant="outlined">Login</Button>
+            <Button variant="outlined" onClick={e => handleSubmit(e)}>Login</Button>
               <Typography variant="body1" color="#1976D2" onClick={() => navigate("/forget-password")} style={{ cursor: "pointer" }}>Forgot password?</Typography>
               <Typography variant="body1" color="#1976D2" onClick={() => navigate("/signup")} style={{ cursor: "pointer" }}>
                 You don't have an account? Sign-up

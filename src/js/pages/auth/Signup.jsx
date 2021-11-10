@@ -14,7 +14,7 @@ const Signup = () => {
     const [email, setEmail] = React.useState("")
     const [password, setPassword] = React.useState("")
 
-    const HandleSubmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault()
         try {
             axios.post("https://api.pote.dev/users", {username, password, lastname, firstname, email})
@@ -79,7 +79,7 @@ const Signup = () => {
                   autocomplete: 'off',
                 }}}
             />
-            <Button variant="outlined" onClick={(e) => HandleSubmit(e)}>Signup</Button>
+            <Button variant="outlined" onClick={(e) => handleSubmit(e)}>Signup</Button>
               <Typography variant="body1" color="#1976D2" onClick={() => navigate("/login")} style={{ cursor: "pointer" }}>Already have an account?</Typography>
           </Stack>
         </Grid>

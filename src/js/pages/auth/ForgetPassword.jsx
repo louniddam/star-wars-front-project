@@ -10,7 +10,7 @@ const ForgetPassword = () => {
     const [email, setEmail] = React.useState("")
     const [emailIsSent, setEmailIsSent] = React.useState(false)
 
-    const HandleSubmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault()
         try {
             axios.post("https://api.pote.dev/auth/forgot_password", {email})
@@ -45,7 +45,7 @@ const ForgetPassword = () => {
               variant="outlined"
               onChange={(e) => setEmail(e.target.value)}
             />
-            <Button variant="outlined" onClick={e => HandleSubmit(e)}>Send email</Button>
+            <Button variant="outlined" onClick={e => handleSubmit(e)}>Send email</Button>
               <Typography variant="body1" color="#1976D2" onClick={() => navigate("/login")} style={{ cursor: "pointer" }}>Back to Login</Typography>
               {emailIsSent && 
               <Typography variant="body1" color="green" style={{ cursor: "pointer" }}>An email have been sent!</Typography>
