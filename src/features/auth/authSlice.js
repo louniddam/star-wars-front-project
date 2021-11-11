@@ -4,7 +4,11 @@ const initialState = {
     xsrfToken: "",
     accessToken: "",
     refreshToken: "",
-    // username: ""
+    userInfos: {
+        username: "",
+        firstname: "",
+        email: "",
+    }
 }
 
 const authSlice = createSlice({
@@ -19,9 +23,15 @@ const authSlice = createSlice({
         },
         refreshToken: (state, action) => {
             state.refreshToken = action.payload
+        },
+        userInfos: (state, action) => {
+            state.userInfos.username = action.payload.username
+            state.userInfos.firstname = action.payload.firstname
+            state.userInfos.lastname = action.payload.lastname
+            state.userInfos.email = action.payload.email
         }
     }
 })
 
-export const { xsrfToken, accessToken, refreshToken } = authSlice.actions
+export const { xsrfToken, accessToken, refreshToken, userInfos } = authSlice.actions
 export default authSlice.reducer

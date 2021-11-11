@@ -2,7 +2,7 @@ import React from 'react'
 import {Stack, TextField, Grid, Typography, Button} from '@mui/material';
 import { useNavigate } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux'
-import { xsrfToken, accessToken, refreshToken } from '../../../features/auth/auth'
+import { xsrfToken, accessToken, refreshToken, userInfos } from '../../../features/auth/authSlice'
 import axios from "axios"
 
 const Login = () => {
@@ -10,14 +10,8 @@ const Login = () => {
     let navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const storedAccessToken = useSelector((state) => state.auth.accessToken)
-    const storedXsrfToken = useSelector((state) => state.auth.xsrfToken)
-
     const [email, setEmail] = React.useState("")
     const [password, setPassword] = React.useState("")
-
-    console.log(storedAccessToken);
-
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -35,8 +29,9 @@ const Login = () => {
                 }
             })
             .then(res => {
-                console.log(res.data);
+                dispatch(userInfos(res.data))
             })
+            .then(navigate("/"))
         })
         } catch (error) {
             console.log(error);
