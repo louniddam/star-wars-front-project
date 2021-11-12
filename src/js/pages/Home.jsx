@@ -45,7 +45,7 @@ const Home = () => {
                             <Typography variant="body1">Characters</Typography>
                         </Stack>
                         <Stack spacing={1} alignItems="center">
-                            <IconButton onClick={() => navigate("/startships")}>
+                            <IconButton onClick={() => navigate("/starships")}>
                                 <img src={StarshipIcon} style={{ height: "50px", width: "70px" }} />
                             </IconButton>
                             <Typography variant="body1">Starships</Typography>
